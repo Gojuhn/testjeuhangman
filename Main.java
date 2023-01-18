@@ -72,46 +72,84 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int essay =  6;
-        int erreur = 0;
+
+
+
+        char yesOrno = 'y';
+
+        while(yesOrno == 'y'){
+            int essay =  6;
+            int erreur = 0;
 
 
 
 
-        int number = numberRandom(words);
-        String motMystere = words[number];
-        char devine = ' ';
+            int number = numberRandom(words);
+            String motMystere = words[number];
+            char devine = ' ';
 
 
-        char[] listeWrongChar = new char[essay];
-        for(int i = 0;i< essay; i++){
+            char[] listeWrongChar = new char[essay];
+            for(int i = 0;i< essay; i++){
 
-            listeWrongChar[i] = ' ';
+                listeWrongChar[i] = ' ';
+            }
+            char[] indexChar = new char[charListe(motMystere).length];
+
+            for(int i = 0;i< charListe(motMystere).length; i++){
+
+                indexChar[i] = '_';
+            }
+
+            String resultat = "";
+
+            while(true){
+
+
+                affiche(gallows, erreur);
+                afficheCharWord(devine,charListe(motMystere),indexChar);
+                wrongTableau(listeWrongChar);
+                if(Arrays.equals(indexChar , charListe(motMystere))){
+
+                    resultat = "You win";
+                    break;
+
+
+
+
+                }
+                if (erreur == 6){
+
+
+                    resultat = "You loose";
+                    break;
+                }
+                //System.out.print( motMystere + "\n");
+                devine = guess();
+
+                erreur = misses(check(devine,charListe(motMystere)),erreur,devine,listeWrongChar);
+
+
+
+
+
+
+            }
+
+            System.out.println(resultat);
+            if(resultat.equals("You loose")){
+
+                System.out.println("Le mot mystére est : " + motMystere);
+            }
+
+            Scanner input = new Scanner(System.in);
+
+            System.out.print("Do you want to play again y/n : ");
+
+            yesOrno = input.next().charAt(0);
+
+
         }
-        char[] indexChar = new char[charListe(motMystere).length];
-
-        for(int i = 0;i<charListe(motMystere).length; i++){
-
-            indexChar[i] = '_';
-        }
-
-        while(true){
-
-
-            affiche(gallows, erreur);
-            afficheCharWord(devine,charListe(motMystere),indexChar);
-            wrongTableau(listeWrongChar);
-
-            //System.out.print( motMystere + "\n");
-            devine = guess();
-
-            erreur = misses(check(devine,charListe(motMystere)),erreur,devine,listeWrongChar);
-
-
-
-
-        }
-
 
 
 
